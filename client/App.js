@@ -1,7 +1,8 @@
 import React ,{Component}from "react"
+import { DatePicker } from 'antd';
 class App extends Component{
     render(){
-        return<div>this2222</div>
+        return<div><DatePicker/></div>
     }
 }
 
