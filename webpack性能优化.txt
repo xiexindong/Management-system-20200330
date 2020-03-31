@@ -1,0 +1,13 @@
+1：尽可能使用新的node npm yarn 新的版本 有代码的优化，提升打包速度
+2：使用loader 时，善于使用 exclude:/node_modules/ 因为包里面的js 都是已经打包好的，不需要再用babel-loader 进行编译一遍
+	  或者是 include:path.resolve(__dirname,路径)，直接指定打包的路径
+3：谨慎的使用plugin 尽可能的精简 因为在开发环境 不要 css 压缩
+4：TreeSking 去掉无用的代码
+5：使用Dll  只打包一次 使用
+6：多线程打包
+7：resolve 进行合理配置，优先选择哪几种文件类型  alias extensions 
+
+
+
+下一步 css 优化  TreeSking
+提取公用的代码

@@ -1,7 +1,36 @@
-const path = require("path")
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-const  {CleanWebpackPlugin} = require("clean-webpack-plugin")
+const path = require("path");
+const fs = require('fs');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const  {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const   AddAseetHTMLPLUGIN = require("add-asset-html-webpack-plugin");
+
 const webpack = require('webpack');
+
+const plugins = [
+    new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+        title:"this is a react",
+        template:path.resolve(__dirname,"../client/index.html"),
+        filename:"index.html"
+    }),
+    new webpack.HotModuleReplacementPlugin()
+]
+// node 读取 dll 下的文件
+
+const files = fs.readdirSync(path.resolve(__dirname,"../dll"));
+
+
+
+files.forEach(file=>{
+    if(/.*\.dll.js/.test(file)){
+        console.log("fil111e",file)
+        plugins.push(new AddAseetHTMLPLUGIN({filepath:path.resolve(__dirname,'../dll',file)}))
+    }
+    if(/.*manifest.josn/.test(file)){
+        plugins.push(new webpack.DllReferencePlugin({manifest:path.resolve(__dirname,'../dll',file)}))
+    } 
+    // 读取公共模块 优先从 manifest.json 中读取 
+})
 
 const isDEV = process.env.NODE_ENV || "development"
 
@@ -21,19 +50,12 @@ const config = {
             },
             {
                 test:/\.js$/,
-                exclude:/node_modules/,
+                exclude:/node_modules/, // 此目录下文件不在进行 babel-loader 的编译打包速度，也可以使用include指定需要编译的文件
                 loader:"babel-loader"
             }
         ]
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-        title:"this is a react",
-        template:path.resolve(__dirname,"../client/index.html"),
-        filename:"index.html"
-    }),
-        new webpack.HotModuleReplacementPlugin()]
+    plugins
 }
 
 if(isDEV){
@@ -41,10 +63,11 @@ if(isDEV){
         index:path.resolve(__dirname,"../client/index.js")
     }
     config.devServer={
-        host:"0.0.0.0",
+            host:"localhost",
             contentBase:path.join(__dirname,"./dist"),
             port:9000,
             hot: true,
+            open:true,
             overlay: {
             warnings: true,
                 errors: true
