@@ -1,9 +1,8 @@
 import React from "react"
 import ReactDom from "react-dom"
 import { AppContainer } from 'react-hot-loader';
-import App,{add} from "./App"
+import App from "./App"
 
-add(1,2)
 
 const root = document.getElementById("root")
 const render = Component =>{
@@ -19,7 +18,6 @@ render(App)
 
 if (module.hot) {
     module.hot.accept('./App.js', function() {
-        console.log(1111,require("./App").default)
             let nextApp = require("./App").default
             render(nextApp)
 

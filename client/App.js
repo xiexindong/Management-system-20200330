@@ -1,17 +1,16 @@
 import React ,{Component}from "react"
-import { DatePicker } from 'antd';
+import  {BrowserRouter as Router ,Route,Switch} from "react-router-dom"
+import  Login from "./container/login"
 class App extends Component{
     render(){
-        return<div>2222</div>
+        return<Router>
+                <div>
+                    <Switch>
+                        <Route  path={["/","/login"]} component={Login}/>
+                    </Switch>
+                </div>
+        </Router>
     }
-}
-
-export  const add = (x,y)=>{
-    console.log(x,y)
-}
-
-export const jian =(x,y)=>{
-    console.log(x-y)
 }
 
 export default App
