@@ -6,7 +6,7 @@ var merge = require('webpack-merge');
 
 
 const config = {
-    entry:{index:path.resolve(__dirname,"../client/index.js")},
+
     mode:"development",
     devtool:"cheap-module-eval-source-map",
     devServer:{

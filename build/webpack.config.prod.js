@@ -1,5 +1,5 @@
 const merge = require("webpack-merge")
-const comConfig = rquire("./webpack.config.com.js")
+const comConfig = require("./webpack.config.com.js")
 const prodConfig = {
   mode:"production",
   devtool:"cheap-module-source-map"

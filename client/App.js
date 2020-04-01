@@ -6,6 +6,14 @@ class App extends Component{
     }
 }
 
-export  default App
+export  const add = (x,y)=>{
+    console.log(x,y)
+}
+
+export const jian =(x,y)=>{
+    console.log(x-y)
+}
+
+export default App
 
 
