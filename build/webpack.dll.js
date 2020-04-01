@@ -6,7 +6,7 @@ module.exports =  {
     mode:"production",
     entry:{
         vendors:['lodash'],
-        react:["react","react-dom"]
+        react:["react","react-dom"],
     },
     output:{
         filename:'[name].dll.js',

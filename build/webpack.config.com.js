@@ -17,7 +17,6 @@ const plugins = [
         template:path.resolve(__dirname,"../client/index.html"),
         filename:"index.html"
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new happyPack({
         id:"css",
         threadPool:happyPackPool,//共享线程池
@@ -47,6 +46,11 @@ files.forEach(file=>{
 
 module.exports = {
     entry:{index:path.resolve(__dirname,"../client/index.js")},
+    output:{
+        filename:"[name].js",
+        path:path.resolve(__dirname,"../dist"),
+        publicPath:"/public/"
+    },
     module:{
         rules:[
             {
@@ -61,6 +65,12 @@ module.exports = {
         ]
     },
     plugins,
+    optimization:{
+        splitChunks:{
+            chunks:'all'
+        }
+    }
+   
 
 }
 

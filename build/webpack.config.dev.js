@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack")
 const comConfig = require("./webpack.config.com")
 var merge = require('webpack-merge');
 
@@ -6,7 +7,6 @@ var merge = require('webpack-merge');
 
 
 const config = {
-
     mode:"development",
     devtool:"cheap-module-eval-source-map",
     devServer:{
@@ -26,12 +26,13 @@ const config = {
             ]
         }
     },
-    output:{
-        filename:"[name].js",
-        path:path.resolve(__dirname,"../dist"),
-        publicPath:"/public/"
-    }
+    optimization:{
+        usedExports:true
+    }, 
+    plugins:[
+        new webpack.HotModuleReplacementPlugin(),
+    ]
 }
 
 
-module.exports = merge(config,comConfig);
+module.exports = merge(comConfig,config);
