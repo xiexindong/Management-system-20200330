@@ -5,8 +5,12 @@ const webpack = require("webpack")
 module.exports =  {
     mode:"production",
     entry:{
-        vendors:['lodash'],
-        react:["react","react-dom"],
+        react:["react","react-router-dom"],
+        antd:[
+            'antd/lib/form',
+            'antd/lib/input',
+            'antd/lib/button',
+            'antd/lib/checkbox']
     },
     output:{
         filename:'[name].dll.js',
@@ -19,6 +23,6 @@ module.exports =  {
             path:path.resolve(__dirname,'../dll/[name].manifest.json'),
         })
     ]
-    
+
 
 }

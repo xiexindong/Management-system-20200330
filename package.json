@@ -2,7 +2,7 @@
   "name": "management-system-20200330",
   "version": "1.0.0",
   "description": "",
-  "sideEffects":false,  
+  "sideEffects": false,
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -50,6 +50,7 @@
     "react-hot-loader": "^4.12.20",
     "style-loader": "^1.1.3",
     "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"

@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack")
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const comConfig = require("./webpack.config.com")
 var merge = require('webpack-merge');
 
@@ -28,9 +29,10 @@ const config = {
     },
     optimization:{
         usedExports:true
-    }, 
+    },
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
+        new BundleAnalyzerPlugin()
     ]
 }
 

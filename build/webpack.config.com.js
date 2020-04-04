@@ -28,7 +28,7 @@ const plugins = [
         threadPool:happyPackPool,
         loaders: ['babel-loader'],
         verbose: true
-    })
+    }),
 ]
 // node 读取 dll 下的文件
 const files = fs.readdirSync(path.resolve(__dirname,"../dll"));
@@ -65,58 +65,30 @@ module.exports = {
         ]
     },
     plugins,
-    optimization:{
-        splitChunks:{
-            chunks: 'all',
-            minSize: 30000,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
-            name: true,
-            cacheGroups: {
-              vendors: {
-                test: /[\\/]node_modules[\\/]/,
-                priority: -10
-              },
-              default: {
-                minChunks: 2,
-                priority: -20,
-                reuseExistingChunk: true
-              }
-            }
-        }
-    }
-   
+
+
+
 
 }
 
-// optimization: {
-//     runtimeChunk: {
-//         name: 'manifest'
-//     },
+// optimization:{
 //     splitChunks:{
-//         chunks: 'async',
+//         chunks: 'all',
 //             minSize: 30000,
 //             minChunks: 1,
 //             maxAsyncRequests: 5,
 //             maxInitialRequests: 3,
-//             name: false,
+//             automaticNameDelimiter: '~',
+//             name: true,
 //             cacheGroups: {
-//             vendor: {
-//                 name: 'vendor',
-//                     chunks: 'initial',
-//                     priority: -10,
-//                     reuseExistingChunk: false,
-//                     test: /node_modules\/(.*)\.js/
+//             vendors: {
+//                 test: /[\\/]node_modules[\\/]/,
+//                     priority: -10
 //             },
-//             styles: {
-//                 name: 'styles',
-//                     test: /\.(scss|css)$/,
-//                     chunks: 'all',
-//                     minChunks: 1,
-//                     reuseExistingChunk: true,
-//                     enforce: true
+//         default: {
+//                 minChunks: 2,
+//                     priority: -20,
+//                     reuseExistingChunk: true
 //             }
 //         }
 //     }
