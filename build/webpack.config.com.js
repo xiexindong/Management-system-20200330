@@ -18,9 +18,9 @@ const plugins = [
         filename:"index.html"
     }),
     new happyPack({
-        id:"css",
+        id:"less",
         threadPool:happyPackPool,//共享线程池
-        loaders:['style-loader','css-loader'],
+        loaders:['style-loader','css-loader',"less-loader" ],
         verbose: true
     }),
     new happyPack({
@@ -31,17 +31,17 @@ const plugins = [
     }),
 ]
 // node 读取 dll 下的文件
-const files = fs.readdirSync(path.resolve(__dirname,"../dll"));
+// const files = fs.readdirSync(path.resolve(__dirname,"../dll"));
 
-files.forEach(file=>{
-    if(/.*\.dll.js/.test(file)){
-        plugins.push(new AddAseetHTMLPLUGIN({filepath:path.resolve(__dirname,'../dll',file)}))
-    }
-    if(/.*manifest.josn/.test(file)){
-        plugins.push(new webpack.DllReferencePlugin({manifest:path.resolve(__dirname,'../dll',file)}))
-    }
-    // 读取公共模块 优先从 manifest.json 中读取
-})
+// files.forEach(file=>{
+//     if(/.*\.dll.js/.test(file)){
+//         plugins.push(new AddAseetHTMLPLUGIN({filepath:path.resolve(__dirname,'../dll',file)}))
+//     }
+//     if(/.*manifest.josn/.test(file)){
+//         plugins.push(new webpack.DllReferencePlugin({manifest:path.resolve(__dirname,'../dll',file)}))
+//     }
+//     // 读取公共模块 优先从 manifest.json 中读取
+// })
 
 
 module.exports = {
@@ -54,8 +54,8 @@ module.exports = {
     module:{
         rules:[
             {
-                test:/.css$/,
-                loader: "happypack/loader?id=css"
+                test:/.less$/,
+                loader: "happypack/loader?id=less"
             },
             {
                 test:/\.js$/,
