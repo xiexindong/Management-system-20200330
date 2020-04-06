@@ -18,6 +18,24 @@ const plugins = [
         filename:"index.html"
     }),
     new happyPack({
+        id:"svg",
+        threadPool:happyPackPool,
+        loaders:['babel-loader',{
+            loader:'@svgr/webpack',
+            options: {
+                babel: false,
+                icon: true,
+              }
+        }],
+        verbose: true
+    }),
+    new happyPack({
+        id:"photo",
+        threadPool:happyPackPool,
+        loaders: ['url-loader'],
+        verbose: true
+    }),
+    new happyPack({
         id:"less",
         threadPool:happyPackPool,//共享线程池
         loaders:['style-loader','css-loader',"less-loader" ],
@@ -53,6 +71,14 @@ module.exports = {
     },
     module:{
         rules:[
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader:"happypack/loader?id=svg"
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                loader:"happypack/loader?id=photo"
+            },
             {
                 test:/.less$/,
                 loader: "happypack/loader?id=less"

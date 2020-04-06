@@ -20,6 +20,12 @@ const config = {
             warnings: true,
             errors: true
         },
+        proxy:{
+            '/api':{
+                target: "http://localhost:8000",
+                pathRewrite:{'/api':''}
+            }
+        },
         publicPath:"/public/",
         historyApiFallback:{
             rewrites:[
