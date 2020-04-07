@@ -5,14 +5,21 @@ const model = require("./mode");
 const User = model.getModel("user");
 const filter = {password:0,__v:0}
 
-router.post("/getUserInfo",function (req,res,next) {
+router.get("/getUserInfo",function (req,res,next) {
+    console.log("req.cookie",req.cookies)
     let userId = req.cookies.userId
-    console.log(2222,req.cookies);
-    if(typeof userId!= "undefined"){
+    if(typeof userId == "undefined"){
         return res.send({
             code:1,
             body:{
                 msg:"用户没有登录"
+            }
+        })
+    }else{
+        return res.send({
+            code:0,
+            body:{
+                msg:"用户已经登录"
             }
         })
     }

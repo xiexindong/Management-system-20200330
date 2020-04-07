@@ -1,11 +1,9 @@
 import React,{Component} from "react"
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import {Redirect} from "react-router-dom"
 import {register} from "../../../redux/user.redux"
 import {connect} from "react-redux"
 import PhoneSvg from "./phone.svg"
-
-
-// import {login} from "../../../redux/user.redux"
 
 
 //密码必须包含数字和字母并且长度8到16位 请用正则pwRegex
@@ -73,83 +71,88 @@ class Register extends Component {
   };
 
   render() {
+    console.log("this.props.form",this.props)
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
-        <Form.Item hasFeedback>
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: '请输入用户名!' }],
-        
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="请输入用户名"
-            />,
-          )}
-        </Form.Item>
-        <Form.Item hasFeedback>
-          {getFieldDecorator('password', {
-            rules: [
-                    { 
-                     required: true,
-                     message: '请输入密码!' ,
-                    },
-                    {
-                     validator: this.validateToNextPassword,
-                    }
-                ],
-        
-          })(
-            <Input.Password
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="请输入密码"
-            />,
-          )}
-        </Form.Item>
-        <Form.Item hasFeedback>
-          {getFieldDecorator('confirm', {
-            rules: [
-              {
-                required: true,
-                message: '请确认密码!',
-              },
-              {
-                validator: this.compareToFirstPassword,
-              },
-            ],
-          })(<Input.Password 
-            prefix={<Icon type="unlock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder="请确认密码"
-            onBlur = {this.handleConfirmBlur}
-             />)}
-        </Form.Item>
-        <Form.Item hasFeedback>
+      <div>
+        {this.props.redirectTo?<Redirect to={this.props.redirectTo}/>:null}
+        <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form.Item hasFeedback>
+        {getFieldDecorator('username', {
+          rules: [{ required: true, message: '请输入用户名!' }],
+      
+        })(
+          <Input
+            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            placeholder="请输入用户名"
+          />,
+        )}
+      </Form.Item>
+      <Form.Item hasFeedback>
+        {getFieldDecorator('password', {
+          rules: [
+                  { 
+                   required: true,
+                   message: '请输入密码!' ,
+                  },
+                  {
+                   validator: this.validateToNextPassword,
+                  }
+              ],
+      
+        })(
+          <Input.Password
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="请输入密码"
+          />,
+        )}
+      </Form.Item>
+      <Form.Item hasFeedback>
+        {getFieldDecorator('confirm', {
+          rules: [
             {
-                getFieldDecorator("phone",{
-                    rules:[
-                        {
-                            required:true,
-                            message:"请输入手机号"
-                        },
-                        {
-                            validator:this.validatorPhone
-                        }
-                    ]
-                })(
-                    <Input
-                        prefix={<Icon component={PhoneSvg}/>}
-                        placeholder = "请输入手机号"
-                
-                    />
-                )
-            }
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block className="login-form-button">
-            注册
-          </Button>
-        </Form.Item>
-      </Form>
+              required: true,
+              message: '请确认密码!',
+            },
+            {
+              validator: this.compareToFirstPassword,
+            },
+          ],
+        })(<Input.Password 
+          prefix={<Icon type="unlock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+          placeholder="请确认密码"
+          onBlur = {this.handleConfirmBlur}
+           />)}
+      </Form.Item>
+      <Form.Item hasFeedback>
+          {
+              getFieldDecorator("phone",{
+                  rules:[
+                      {
+                          required:true,
+                          message:"请输入手机号"
+                      },
+                      {
+                          validator:this.validatorPhone
+                      }
+                  ]
+              })(
+                  <Input
+                      prefix={<Icon component={PhoneSvg}/>}
+                      placeholder = "请输入手机号"
+              
+                  />
+              )
+          }
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" block className="login-form-button">
+          注册
+        </Button>
+      </Form.Item>
+    </Form>
+      </div>  
+      
     );
   }
 }
