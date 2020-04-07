@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
 import  Login from "./container/login"
 import  Register from "./container/register"
+import  Admin from "./container/admin"
+import AuthRouter from "./componet/authRouter"
 import ReactLoading from 'react-loading';
 import appReducer from "../redux/index"
 import  "./common.less"
@@ -24,8 +26,10 @@ class App extends Component{
             <div className="box">
                 <Router>
                     <div className="g-wt g-ht g-pr">
-                        {/* <ReactLoading type="spokes" color="red" height={667} width={375}></ReactLoading> */}
+                        <AuthRouter/>
+                         {/*<ReactLoading type="spokes" color="red" height={667} width={375}></ReactLoading>*/}
                         <Switch>
+                            <Route  exact path="/" component={Admin}/>
                             <Route  path="/login" component = {Login}/>
                             <Route  path="/register" component = {Register}/>
                         </Switch>

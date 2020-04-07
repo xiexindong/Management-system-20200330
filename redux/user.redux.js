@@ -1,6 +1,7 @@
 import axios from "axios"
 const LOGIN_INFO = "LOGIN_INFO";
 const REGISTER_INFO = "REGISTER_INFO";
+const GETUSERINFO = "GETUSERINFO"
 
 const initState = {
     userId:"",
@@ -10,26 +11,33 @@ const initState = {
 }
 
 export const user = (stata = initState,action)=>{
-    
+
     switch(action.type){
         case LOGIN_INFO:
-            return {...stata,...action.payload}
+            return {...stata,...action.payload,redirectTo:"/home"}
         case REGISTER_INFO:
-        
-            return {...stata,...action.payload}    
+            return {...stata,...action.payload,redirectTo:"/home"}
+        case GETUSERINFO :
+            return {...stata,...action.payload}
         default:
-            return{...stata}    
+            return{...stata}
     }
 }
 
 
-// action 
+// action
 const loginAction = (data)=>{
     return {type:LOGIN_INFO,payload:data}
 }
 const registerAction = (data)=>{
-  
+
     return {type:REGISTER_INFO,payload:data}
+}
+
+
+const getUserInfoAction = (data)=>{
+
+    return {type:GETUSERINFO,payload:data}
 }
 
 
@@ -43,8 +51,8 @@ export const login = (data)=>{
         .catch(err=>{
             console.log("err",err)
         })
-    } 
-   
+    }
+
 }
 export const register = (data)=>{
     return dispatch =>{
@@ -55,6 +63,18 @@ export const register = (data)=>{
         .catch(err=>{
             console.log("err",err)
         })
-    } 
-   
+    }
+
+}
+
+export  const getUserInfo = (data)=>{
+    return dispatch => {
+        axios.post("/api/user/getUserInfo",{})
+            .then(response =>{
+                dispatch(getUserInfoAction(data))
+            })
+            .catch(error => {
+                console.log("error",error)
+            })
+    }
 }

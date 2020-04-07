@@ -5,27 +5,39 @@ const model = require("./mode");
 const User = model.getModel("user");
 const filter = {password:0,__v:0}
 
+router.post("/getUserInfo",function (req,res,next) {
+    let userId = req.cookies.userId
+    console.log(2222,req.cookies);
+    if(typeof userId!= "undefined"){
+        return res.send({
+            code:1,
+            body:{
+                msg:"用户没有登录"
+            }
+        })
+    }
+})
 
 router.post("/login",function(req,res,next){
     if(JSON.stringify(req.body) == "{}"){
         return res.send({
             code:1,
             body:{
-                msg:"数据有误"    
+                msg:"数据有误"
             }
         })
     }
     let {username,password} = req.body;
     User.findOne({username,password:pwdMD5(password)},filter,(err,doc)=>{
         if(err){
-           
+
             return res.send({
                 code:1,
                 body:{
                     msg:"服务器有问题"
                 }
             })
-        }   
+        }
         return res.send({
             code:0,
             body:{
@@ -42,7 +54,7 @@ router.post("/register",function(req,res,next){
         return res.send({
             code:1,
             body:{
-                msg:"数据有误"    
+                msg:"数据有误"
             }
         })
     }
@@ -88,7 +100,7 @@ router.post("/register",function(req,res,next){
                     msg:"服务器有问题"
                 }
             })
-        }   
+        }
         res.cookie('userId', doc._id, { maxAge: 900000, httpOnly: true });
         return res.send({
             code:0,
@@ -99,7 +111,7 @@ router.post("/register",function(req,res,next){
             }
         })
     })
-   
+
 })
 
 
