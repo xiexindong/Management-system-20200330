@@ -12,15 +12,15 @@ const initState = {
 }
 
 export const user = (stata = initState,action)=>{
-    console.log("handelLoading222",action)
     switch(action.type){
         case LOGIN_INFO:
             return {...stata,...action.payload,redirectTo:"/admin"}
         case REGISTER_INFO:
             return {...stata,...action.payload,redirectTo:"/admin"}
         case LOADING:
+            debugger
             console.log("handelLoading333",action)
-            return {...stata,...action.payload}    
+            return {...stata,...action.payload}
         default:
             return{...stata}
     }
@@ -36,7 +36,8 @@ const registerAction = (data)=>{
     return {type:REGISTER_INFO,payload:data}
 }
 
-const loadingAction = (data)=>{
+export const loadingAction = (data)=>{
+    console.log("handelLoading11111",data)
     return {type:LOADING,payload:data}
 }
 
@@ -71,9 +72,9 @@ export const register = (data)=>{
 
 }
 export const handelLoading = (data)=>{
-    console.log("handelLoading",data)
     return dispatch =>{
-        dispatch(loadingAction(data))
+        console.log('dispatch action', dispatch)
+        dispatch(loadingAction)
     }
 
 }
