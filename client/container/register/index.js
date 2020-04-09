@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button,Alert  } from 'antd';
 import {Redirect} from "react-router-dom"
 import {register} from "../../../redux/user.redux"
 import {connect} from "react-redux"
@@ -41,7 +41,6 @@ class Register extends Component {
       const { value } = e.target;
       this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
-
   validatorPhone =  (rule, value, callback)  =>{
 
     if(!!value == false){
@@ -56,31 +55,35 @@ class Register extends Component {
 
   }
 
+  onClose = e => {
+        console.log(e, 'I was closed.');
+    };
 
   handleSubmit = e => {
     e.preventDefault();
     let form = this.props.form;
-   
+
     form.validateFields(["username","password","confirm","phone"],{first:true},(err, values) => {
       if (!err) {
         this.props.register(values)
         console.log('Received values of form: ', values);
       }
     });
-  
+
   };
 
   render() {
-    console.log("this.props.form",this.props)
+
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
+        {this.props.msg?<Alert message={this.props.msg} banner closable />:null}
         {this.props.redirectTo?<Redirect to={this.props.redirectTo}/>:null}
         <Form onSubmit={this.handleSubmit} className="login-form">
       <Form.Item hasFeedback>
         {getFieldDecorator('username', {
           rules: [{ required: true, message: '请输入用户名!' }],
-      
+
         })(
           <Input
             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -91,7 +94,7 @@ class Register extends Component {
       <Form.Item hasFeedback>
         {getFieldDecorator('password', {
           rules: [
-                  { 
+                  {
                    required: true,
                    message: '请输入密码!' ,
                   },
@@ -99,7 +102,7 @@ class Register extends Component {
                    validator: this.validateToNextPassword,
                   }
               ],
-      
+
         })(
           <Input.Password
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -118,7 +121,7 @@ class Register extends Component {
               validator: this.compareToFirstPassword,
             },
           ],
-        })(<Input.Password 
+        })(<Input.Password
           prefix={<Icon type="unlock" style={{ color: 'rgba(0,0,0,.25)' }} />}
           placeholder="请确认密码"
           onBlur = {this.handleConfirmBlur}
@@ -140,7 +143,7 @@ class Register extends Component {
                   <Input
                       prefix={<Icon component={PhoneSvg}/>}
                       placeholder = "请输入手机号"
-              
+
                   />
               )
           }
@@ -151,8 +154,8 @@ class Register extends Component {
         </Button>
       </Form.Item>
     </Form>
-      </div>  
-      
+      </div>
+
     );
   }
 }

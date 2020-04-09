@@ -1,5 +1,13 @@
 @percent:100%;
-
+@c-r:red;
+.align-item-center(){
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right: 0;
+  margin: auto;
+}
 
 
 html,body,#root{
@@ -19,4 +27,9 @@ html,body,#root{
     height: @percent;
     background:#fff;
 }
-
+.loading{
+    color:@c-r;
+    height:39px;
+    right: 30px;
+    .align-item-center();
+}
