@@ -3,6 +3,7 @@ import { Form, Icon, Input, Button,Alert  } from 'antd';
 import {Redirect} from "react-router-dom"
 import {register} from "../../../redux/user.redux"
 import {connect} from "react-redux"
+import MyAlert from "../../componet/alert"
 import PhoneSvg from "./phone.svg"
 
 
@@ -55,9 +56,7 @@ class Register extends Component {
 
   }
 
-  onClose = e => {
-        console.log(e, 'I was closed.');
-    };
+  
 
   handleSubmit = e => {
     e.preventDefault();
@@ -71,13 +70,13 @@ class Register extends Component {
     });
 
   };
-
+ 
+ 
   render() {
-
     const { getFieldDecorator } = this.props.form;
     return (
       <div>
-        {this.props.msg?<Alert message={this.props.msg} banner closable />:null}
+        {this.props.msg?<MyAlert/>:null}
         {this.props.redirectTo?<Redirect to={this.props.redirectTo}/>:null}
         <Form onSubmit={this.handleSubmit} className="login-form">
       <Form.Item hasFeedback>
@@ -161,17 +160,8 @@ class Register extends Component {
 }
 
 
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     state: state.user
-//   }
-// }
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     login
-//   }
-// }
+
 
 
 export default Form.create({ name: 'register' })(Register)

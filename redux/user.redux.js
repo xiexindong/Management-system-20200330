@@ -3,6 +3,7 @@ const LOGIN_INFO = "LOGIN_INFO";
 const REGISTER_INFO = "REGISTER_INFO";
 const LOADING = "LOADING";
 const MAGSHOW = "MAGSHOW"
+const MAGHIDE = "MAGHIDE"
 
 const initState = {
     userId:"",
@@ -25,6 +26,9 @@ export const user = (stata = initState,action)=>{
              return {...data}
         case LOADING:
             return {...data}
+        case MAGHIDE:{
+            return {...data}
+        }    
         default:
             return{...stata}
     }
@@ -46,6 +50,11 @@ export const loadingAction = (data)=>{
 
 const msgActin = (data)=>{
     return{type:MAGSHOW,payload:data}
+}
+const hideMsgAction = () =>{
+    return {type:MAGHIDE,payload:{
+        msg:""
+    }}
 }
 
 
@@ -79,4 +88,8 @@ export const register = (data)=>{
     }
 
 }
-
+export const hideMsg = ()=>{
+    return dispatch=>{
+        dispatch(hideMsgAction())
+    }
+}
